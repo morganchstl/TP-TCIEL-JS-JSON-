@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-
+app.use(express.json());
 
 
 let champs = [
@@ -34,4 +34,18 @@ app.get("/champs/:id", (req, res) => {
     return res.status(404).json({ erreur: "champion introuvable" });
   }
   res.json(champ);
+});
+
+// POST /produits -> ajoute un produit envoye dans le corps de la requete
+app.post("/produits", (req, res) => {
+  if (!req.body.nom) {                          // donnee obligatoire manquante
+    return res.status(400).json({ erreur: "Le nom est obligatoire" });
+  }
+  const nouveau = {
+    id: champs.length + 1,
+    nom: req.body.nom,
+    prix: req.body.prix
+  };
+  champs.push(nouveau);                       // on ajoute au tableau
+  res.status(201).json(nouveau);                // 201 = cree
 });
