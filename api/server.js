@@ -24,3 +24,14 @@ app.get("/", (req, res) => {
 app.listen(3000, () => {
   console.log("Serveur sur http://localhost:3000");
 });
+
+
+// GET /produits/2 -> renvoie le produit dont l id vaut 2
+app.get("/champs/:id", (req, res) => {
+  const id = Number(req.params.id);            // ":id" arrive en texte -> on convertit
+  const champ = champs.find((p) => p.id === id);
+  if (!champ) {                              // rien trouve
+    return res.status(404).json({ erreur: "champion introuvable" });
+  }
+  res.json(champ);
+});
