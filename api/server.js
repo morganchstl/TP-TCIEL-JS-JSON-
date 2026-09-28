@@ -51,3 +51,13 @@ app.post("/champs", (req, res) => {
 });
 
 
+// DELETE /produits/2 -> supprime le produit n 2
+app.delete("/champs/:id", (req, res) => {
+  const id = Number(req.params.id);
+  const index = champs.findIndex((p) => p.id === id);
+  if (index === -1) {                           // -1 = pas trouve
+    return res.status(404).json({ erreur: "champion introuvable" });
+  }
+  champs.splice(index, 1);                    // retire 1 element a cette position
+  res.status(200).json({ message: "champion supprime" });
+});
