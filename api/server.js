@@ -37,7 +37,7 @@ app.get("/champs/:id", (req, res) => {
 });
 
 // POST /produits -> ajoute un produit envoye dans le corps de la requete
-app.post("/produits", (req, res) => {
+app.post("/champs", (req, res) => {
   if (!req.body.nom) {                          // donnee obligatoire manquante
     return res.status(400).json({ erreur: "Le nom est obligatoire" });
   }
@@ -49,3 +49,5 @@ app.post("/produits", (req, res) => {
   champs.push(nouveau);                       // on ajoute au tableau
   res.status(201).json(nouveau);                // 201 = cree
 });
+
+
